@@ -24,9 +24,9 @@ List of index-related operations:
 `index:getmapping`: Get mappings in the index
 
 List of cluster-related operations:  
-`cluster:base`: Allow ping the es cluster
+`cluster:base`: Allow ping the es cluster   
 `cluster:gethealth`: Allow reading cluster health state   
-`cluster:changesettings`: Allow changing cluster settings
+`cluster:changesettings`: Allow changing cluster settings   
 `cluster:scroll`: Allows the use of the scroll API (this ID uses an id to get subsequent pages, 
 but the first page requires the `index:search` action, so you should be fairly safe to allow it)
 
@@ -35,7 +35,7 @@ A policy describes allowed actions against a _resource_.
 Resources are specified in the format `<type>:::<name>`.
 A type can be either `index` or `cluster`.   
 As an example, a policy allowing search access to all `logstash` indexes would use 
-the resource name `index:::logstash*`.
+the resource name `index:::logstash*:*`. The last `*` represents types in the index, allowing you to specify acls on a per-type basis. 
 
 ## Configuring WesternOmega
 The supplied config.yaml file should have fairly sane defaults. You can also use envvars or 
