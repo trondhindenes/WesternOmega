@@ -5,5 +5,6 @@ RUN pip install --upgrade pip
 COPY . /opt/app
 WORKDIR /opt/app
 RUN pip install -r requirements.txt
+#expose whatever port you configured in config.yaml
 EXPOSE 11000
 ENTRYPOINT python runserver.py
