@@ -1,0 +1,7 @@
+netaddr
+Flask==0.11.1
+flask_restful==0.3.5
+flask_cors
+requests
+pyyaml
+dpath

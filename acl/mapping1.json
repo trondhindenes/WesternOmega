@@ -1,0 +1,25 @@
+{
+  "Statement":[
+    {
+      "Description": "Uses the allowedcidr access type to map any source to policy1.json",
+      "entitytype": "allowedcidr",
+      "entityconfiguration": null,
+      "entitydefinition": "0.0.0.0/0",
+      "policies":[
+        "policy1.json"
+      ]
+    },
+    {
+      "Description": "Not implemented - yet",
+      "entitytype": "bearertoken",
+      "entityconfiguration": {
+        "validatetoken": true
+      },
+      "entitydefinition": "0.0.0.0/0",
+      "policies":[
+        "policy1.json"
+      ]
+    }
+
+  ]
+}

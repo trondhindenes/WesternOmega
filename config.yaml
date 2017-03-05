@@ -1,0 +1,8 @@
+---
+flask_tcp_ip: 0.0.0.0
+flask_tcp_port: 11000
+flask_use_debug: false
+acl_config_folder: 'acl'
+acl_cache_seconds: 3600
+logging_level: debug
+elasticsearch_backend_host: http://192.168.99.100:9200

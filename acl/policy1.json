@@ -1,0 +1,48 @@
+{
+  "Statement": [
+    {
+      "Description1": "This field is not required, and doesn't do anything except documenting or whatever",
+      "Effect": "Allow",
+      "Action": "index:*",
+      "Resource": "index:::twitter:tweet"
+    },
+    {
+      "Description1": "This statement only allows searches against the type tweet2 in the twitter index.",
+      "Description2": "You wont be able to create documents of this type using this statement",
+      "Effect": "Allow",
+      "Action": [
+        "index:searchindex"
+      ],
+      "Resource": "index:::twitter:tweet2"
+    },
+    {
+      "Description1": "This seems to be the required permissions for a kibana index",
+      "Effect": "Allow",
+      "Action": [
+        "index:createindex",
+        "index:deleteindex",
+        "index:getmapping",
+        "index:searchindex",
+        "index:createdocument",
+        "index:updatedocument",
+        "index:mget"
+      ],
+      "Resource": "index:::.kibana:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cluster:base",
+        "cluster:gethealth"
+      ],
+      "Resource": "cluster"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "nodes:getsettings"
+      ],
+      "Resource": "nodes:::*"
+    }
+  ]
+}

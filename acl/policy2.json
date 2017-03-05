@@ -1,0 +1,16 @@
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "cluster:gethealth",
+      "Resource": "cluster:::*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "index:changesettings"
+      ],
+      "Resource": "index:::logstash-*"
+    }
+  ]
+}
