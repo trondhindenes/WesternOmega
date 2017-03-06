@@ -19,11 +19,11 @@ List of index-related operations:
 `index:createdocument`: Allow the creation of documents against the index   
 `index:deletedocument`: Allow deletion of documents from the index
 `index:getsettings`: Get settings for the index
-`index:closeindex`: Close the index
-`index:openindex`: Open the index
-`index:getmapping`: Get mappings in the index
+`index:closeindex`: Close the index   
+`index:openindex`: Open the index   
+`index:getmapping`: Get mappings in the index   
 
-List of cluster-related operations:  
+List of cluster-related operations:   
 `cluster:base`: Allow ping the es cluster   
 `cluster:gethealth`: Allow reading cluster health state   
 `cluster:changesettings`: Allow changing cluster settings   
