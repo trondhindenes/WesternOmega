@@ -1,4 +1,4 @@
-from westernomega import appconfig
+from westernomega import appconfig, cache
 from acl import Acl
 import requests
 import logging
@@ -29,7 +29,7 @@ class NodesOperations(object):
 
         if operation and resource:
             logger.info(str.format("WO:Indexhandler: operation:{0}, resource:{1}", operation, resource))
-            if (self.acl.verify_access(operation, resource, request)):
+            if self.acl.verify_access(operation, resource, request, cache):
                 has_access = True
                 start_time = time.time()
                 if method == 'get':

@@ -1,4 +1,4 @@
-from westernomega import appconfig
+from westernomega import appconfig, cache
 from acl import Acl
 import requests
 import json
@@ -13,7 +13,10 @@ class BaseOperations(object):
         resource = 'cluster'
 
         if method == 'get':
-            if (self.acl.verify_access(operation, resource, request)):
+            if (self.acl.verify_access(operation, resource, request, cache)):
                 has_access = True
                 result = requests.get(self.upstream + path)
+            else:
+                has_access = False
+                result = None
         return has_access, result

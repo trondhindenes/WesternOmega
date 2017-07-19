@@ -1,0 +1,17 @@
+{
+  "Statement":[
+    {
+      "Description": "Basic username/password. TODO: Describe EntityConfig",
+      "entitytype": "basicauth",
+      "entityconfiguration": {
+        "store": "file",
+        "storepath": "acl/userlist-encrypted.json",
+        "encryption": "base64-pbkdf2_sha256"
+      },
+      "entitydefinition": null,
+      "policies":[
+        "policy1.json"
+      ]
+    }
+  ]
+}

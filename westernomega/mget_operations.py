@@ -1,4 +1,4 @@
-from westernomega import appconfig
+from westernomega import appconfig, cache
 from acl import Acl
 import requests
 import json
@@ -21,7 +21,7 @@ class MGetOperations(object):
             resource = str.format('index:::{0}', index_name)
 
         if operation and resource:
-            if (self.acl.verify_access(operation, resource, request)):
+            if self.acl.verify_access(operation, resource, request, cache):
                 has_access = True
                 if method == 'post':
                     result = requests.post(self.upstream + path, data=content)

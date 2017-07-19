@@ -33,7 +33,9 @@
       "Effect": "Allow",
       "Action": [
         "cluster:base",
-        "cluster:gethealth"
+        "cluster:gethealth",
+        "cluster:getsnapshots",
+        "cluster:getsnapshotrepos"
       ],
       "Resource": "cluster"
     },

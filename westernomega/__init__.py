@@ -12,6 +12,7 @@ from werkzeug.contrib.cache import SimpleCache, RedisCache
 from functools import wraps
 from config_helper import ConfigHelper
 #from flask_restful_swagger import swagger
+from werkzeug.contrib.cache import SimpleCache, RedisCache
 
 this_path = sys.path[0]
 
@@ -28,11 +29,19 @@ appconfig['elasticsearch_upstream_server'] = ConfigHelper.get_config_variable(co
                                                                       'elasticsearch_backend_host', format='yaml')
 appconfig['acl_config_folder'] = ConfigHelper.get_config_variable(config, 'acl_config_folder', format='yaml')
 appconfig['logging_level'] = ConfigHelper.get_config_variable(config, 'logging_level', format='yaml')
+appconfig['cache_type'] = ConfigHelper.get_config_variable(config, 'cache_type', format='yaml')
+appconfig['redis_host'] = ConfigHelper.get_config_variable(config, 'redis_host', format='yaml')
+appconfig['redis_port'] = ConfigHelper.get_config_variable(config, 'redis_port', format='yaml')
+appconfig['redis_db'] = ConfigHelper.get_config_variable(config, 'redis_db', format='yaml')
 appconfig['mappings'] = {}
 appconfig['policies'] = {}
 
 logger = log.setup_custom_logger(appconfig['logging_level'])
 
+if appconfig['cache_type'].lower() == 'redis':
+    cache = RedisCache(host=appconfig['redis_host'], port=appconfig['redis_port'])
+else:
+    cache = SimpleCache()
 #Load all mapping and policy files
 here = os.path.dirname(__file__)
 parent = os.path.abspath(os.path.join(here, os.pardir))
@@ -40,14 +49,15 @@ acl_folder = os.path.join(parent, appconfig['acl_config_folder'])
 acl_files = os.listdir(acl_folder)
 for file in acl_files:
     if file.startswith('mapping'):
+        logger.debug('parsing mapping file ' + file)
         with open((os.path.join(acl_folder, file)), 'r') as f:
             mapping_obj = json.loads(f.read())
         appconfig['mappings'][file] = mapping_obj
     if file.startswith('policy'):
+        logger.debug('parsing policy file ' + file)
         with open((os.path.join(acl_folder, file)), 'r') as f:
             mapping_obj = json.loads(f.read())
         appconfig['policies'][file] = mapping_obj
-
 
 api = Api(app)
 
