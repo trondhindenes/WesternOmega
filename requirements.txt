@@ -7,3 +7,4 @@ pyyaml
 dpath
 passlib
 redis
+cherrypy

@@ -58,7 +58,7 @@ class Acl(object):
         username = None
         password = None
 
-        if 'username' in request.authorization and 'password' in request.authorization:
+        if request.authorization and 'username' in request.authorization and 'password' in request.authorization:
             username = request.authorization['username']
             password = request.authorization['password']
         else:
