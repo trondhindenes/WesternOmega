@@ -4,9 +4,12 @@ import logging
 #logger = logging.getLogger('WesternOmega')
 
 def esreq(upstream_url, method, original_request):
-    orig_content_type = original_request.headers['content-type']
     headers = {}
-    headers['Content-Type'] = str(orig_content_type)
+    if 'content-type' in original_request.headers:
+        orig_content_type = original_request.headers['content-type']
+
+        headers['Content-Type'] = str(orig_content_type)
+
     result = None
 
     url = upstream_url + str(original_request.path)

@@ -4,7 +4,7 @@
       "Description1": "This field is not required, and doesn't do anything except documenting or whatever",
       "Effect": "Allow",
       "Action": "index:*",
-      "Resource": "index:::twitter:tweet"
+      "Resource": "index:::*"
     },
     {
       "Description1": "This statement only allows searches against the type tweet2 in the twitter index.",

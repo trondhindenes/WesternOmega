@@ -97,7 +97,8 @@ class IndexOperations(object):
                 logger.debug(str.format('WO:Indexhandler content:'))
                 logger.debug(request.data)
                 logger.debug(str.format('WO:Indexhandler content-type:'))
-                logger.debug(request.headers['content-type'])
+                if 'content-type' in request.headers:
+                    logger.debug(request.headers['content-type'])
 
                 if method == 'get':
                     result = esreq(self.upstream, 'get', request)
