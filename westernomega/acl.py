@@ -1,4 +1,5 @@
-from westernomega import appconfig
+import os
+from westernomega import appconfig, cache
 import json
 import fnmatch
 from netaddr import IPNetwork, IPAddress
@@ -10,7 +11,37 @@ logger = logging.getLogger('WesternOmega')
 
 class Acl(object):
     def __init__(self):
-        pass
+        self.mapping = {}
+        self.policies = {}
+
+    def get_acl_file_info(self):
+        mappings = cache.get('mappings')
+        policies = cache.get('policies')
+        if mappings is None:
+            all_mappings = {}
+            all_policies = {}
+            # Load all mapping and policy files
+            here = os.path.dirname(__file__)
+            parent = os.path.abspath(os.path.join(here, os.pardir))
+            acl_folder = os.path.join(parent, appconfig['acl_config_folder'])
+            acl_files = os.listdir(acl_folder)
+            for file in acl_files:
+                if file.startswith('mapping'):
+                    logger.debug('parsing mapping file ' + file)
+                    with open((os.path.join(acl_folder, file)), 'r') as f:
+                        mapping_obj = json.loads(f.read())
+                        all_mappings[file] = mapping_obj
+                if file.startswith('policy'):
+                    logger.debug('parsing policy file ' + file)
+                    with open((os.path.join(acl_folder, file)), 'r') as f:
+                        mapping_obj = json.loads(f.read())
+                        self.policies[file] = mapping_obj
+                        all_policies[file] = mapping_obj
+            cache.set('mappings', all_mappings, 300)
+            cache.set('policies', all_policies, 300)
+            mappings = all_mappings
+            policies = all_policies
+        return mappings, policies
 
     def match_resource(self, resource, match_resource):
         return fnmatch.fnmatch(resource, match_resource)
@@ -82,19 +113,15 @@ class Acl(object):
 
             return False
 
-
-
-
-
     def verify_access(self, operation, resource, request, cache=None):
         #Build graph of user's access
         #ip-based access
 
-        #this will hold a list of appliable policies which we can check against.
-        #TODO: Cache in redis!!
+        mappings, policies = self.get_acl_file_info()
+
         applied_policies = []
-        for mapping in appconfig['mappings']:
-            for mapping_definition in appconfig['mappings'][mapping]['Statement']:
+        for mapping in mappings:
+            for mapping_definition in mappings[mapping]['Statement']:
                 if mapping_definition['entitytype'] == 'allowedcidr':
                     if self.check_allowed_cidr(request.remote_addr, str(mapping_definition['entitydefinition'])):
                         for policy in mapping_definition['policies']:
@@ -111,7 +138,7 @@ class Acl(object):
         applied_policies = list(set(applied_policies))
 
         for policy in applied_policies:
-            for statement in appconfig['policies'][policy]['Statement']:
+            for statement in policies[policy]['Statement']:
                 if self.match_resource(resource, statement['Resource']):
                     #Resource matches, check operation
                     for action in statement['Action']:

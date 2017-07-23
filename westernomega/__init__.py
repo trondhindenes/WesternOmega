@@ -45,22 +45,7 @@ if appconfig['cache_type'].lower() == 'redis':
     cache = RedisCache(host=appconfig['redis_host'], port=appconfig['redis_port'])
 else:
     cache = SimpleCache()
-#Load all mapping and policy files
-here = os.path.dirname(__file__)
-parent = os.path.abspath(os.path.join(here, os.pardir))
-acl_folder = os.path.join(parent, appconfig['acl_config_folder'])
-acl_files = os.listdir(acl_folder)
-for file in acl_files:
-    if file.startswith('mapping'):
-        logger.debug('parsing mapping file ' + file)
-        with open((os.path.join(acl_folder, file)), 'r') as f:
-            mapping_obj = json.loads(f.read())
-        appconfig['mappings'][file] = mapping_obj
-    if file.startswith('policy'):
-        logger.debug('parsing policy file ' + file)
-        with open((os.path.join(acl_folder, file)), 'r') as f:
-            mapping_obj = json.loads(f.read())
-        appconfig['policies'][file] = mapping_obj
+
 
 api = Api(app)
 
