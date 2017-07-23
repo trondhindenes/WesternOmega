@@ -1,11 +1,11 @@
 ---
 flask_tcp_ip: 0.0.0.0
-flask_tcp_port: 11000
+flask_tcp_port: 12000
 flask_use_debug: false
 acl_config_folder: 'acl'
 acl_cache_seconds: 3600
-logging_level: debug
-elasticsearch_backend_host: http://wpm-0101002.system.rikstv.no:9200
+logging_level: info
+elasticsearch_backend_host: http://192.168.99.100:9200
 cache_type: simplecache #simplecache or redis are the valid options
 redis_host: localhost
 redis_port: 6379

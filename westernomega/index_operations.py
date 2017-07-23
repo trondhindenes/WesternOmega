@@ -15,7 +15,7 @@ class IndexOperations(object):
         operation = None
         # split the parts, count them and figure out what api this is
         parts = str(path).split('/')
-        resource = str.format('index:::{0}', parts[1])
+        resource = str.format('index:::{0}:*', parts[1])
 
         has_access = False
         if len(parts) == 2:
@@ -41,6 +41,9 @@ class IndexOperations(object):
             elif parts[2] == '_search':
                 if method == 'get':
                     operation = 'index:searchindex'
+            elif parts[2] == '_mapping':
+                if method == 'get':
+                    operation = 'index:getmapping'
             else:
                 if method == 'post':
                     #insert document using automatic ID generation
@@ -86,6 +89,8 @@ class IndexOperations(object):
             if parts[2] in ['_mapping']:
                 if method == 'get':
                     operation = 'index:getmapping'
+                    resource = str.format('index:::{0}:{1}', parts[1], parts[3])
+
 
 
         if operation and resource:

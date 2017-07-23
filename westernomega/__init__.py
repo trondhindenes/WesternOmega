@@ -9,10 +9,11 @@ from flask import Flask, request, render_template, session, flash, redirect, url
 from flask_restful import Resource, Api, reqparse, fields
 from flask_cors import CORS, cross_origin
 from werkzeug.contrib.cache import SimpleCache, RedisCache
+import werkzeug
 from functools import wraps
 from config_helper import ConfigHelper
 #from flask_restful_swagger import swagger
-from werkzeug.contrib.cache import SimpleCache, RedisCache
+
 
 this_path = sys.path[0]
 
@@ -23,6 +24,8 @@ here = os.path.dirname(__file__)
 
 static_files_path = os.path.join(here, 'static')
 app = Flask(__name__, static_folder=static_files_path)
+
+
 config = ConfigHelper.get_config_path('config.yaml')
 appconfig = {}
 appconfig['elasticsearch_upstream_server'] = ConfigHelper.get_config_variable(config,

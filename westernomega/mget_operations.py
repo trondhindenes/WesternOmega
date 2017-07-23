@@ -15,10 +15,22 @@ class MGetOperations(object):
         if method == 'post':
             data = request.data
             data_obj = json.loads(data)
-            for doc in data_obj['docs']:
-                index_name = doc['_index']
 
-            resource = str.format('index:::{0}', index_name)
+            index_names = []
+            for doc in data_obj['docs']:
+                index_names.append(doc['_index'])
+            index_names = list(set(index_names))
+            if len(index_names) == 1:
+                index_name = index_names[0]
+                #TODO: We should read type from the request instead of assuming the wildcard
+                type_name = '*'
+            else:
+                #Searched for multuple indexes in one mget operation
+                #This is rare, but allowed. For simplicity, we require that the user has
+                #access to all indexes for this to go thru
+                index_name = '*'
+                type_name = '*'
+            resource = str.format('index:::{0}:{1}', index_name, type_name)
 
         if operation and resource:
             if self.acl.verify_access(operation, resource, request, cache):

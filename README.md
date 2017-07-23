@@ -28,7 +28,8 @@ List of index-related operations:
 `index:getsettings`: Get settings for the index
 `index:closeindex`: Close the index   
 `index:openindex`: Open the index   
-`index:getmapping`: Get mappings in the index   
+`index:getmapping`: Get mappings in the index
+`index:mget`: Use the Multi Get API to search
 
 List of cluster-related operations:   
 `cluster:base`: Allow ping the es cluster   

@@ -1,5 +1,6 @@
 import requests
 import logging
+import json
 
 #logger = logging.getLogger('WesternOmega')
 
@@ -26,8 +27,6 @@ def esreq(upstream_url, method, original_request):
 
     else:
         req['data'] = content
-
-
 
     if method == 'get':
         result = requests.get(**req)

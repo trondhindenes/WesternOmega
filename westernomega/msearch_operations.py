@@ -23,7 +23,7 @@ class MSearchOperations(object):
             elif type(index_indicator_obj['index']) is unicode:
                 index_name = index_indicator_obj['index']
 
-            resource = resource = str.format('index:::{0}', index_name)
+            resource = resource = str.format('index:::{0}:*', index_name)
 
         if operation and resource:
             if self.acl.verify_access(operation, resource, request, cache):
