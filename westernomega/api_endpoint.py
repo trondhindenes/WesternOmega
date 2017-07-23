@@ -83,8 +83,9 @@ class Endpoint(Resource):
             logger.info(str.format("WO:apiendpoint OperationType:{0}, Access granted:{1}, upstream result:{2}"
                         , op_type, str(has_access), str(result.status_code)))
         else:
-            logger.warning(str.format("WO:apiendpoint OperationType:{0}, Access granted:{1}, upstream result:{2}"
-                                   , op_type, str(has_access), 0))
+            #logger.warning(str.format("WO:apiendpoint OperationType:{0}, Access granted:{1},
+            # upstream result:{2}" ,op_type, str(has_access), 0))
+            logger.warning(str.format("Access denied: path: {0}, method: {1}", path, method))
         logger.info(str.format("WO:apiendpoint execution time:{0} seconds (including upstream)",
                                (time.time() - start_time)))
         return has_access, result

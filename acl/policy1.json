@@ -31,7 +31,8 @@
         "index:searchindex",
         "index:createdocument",
         "index:updatedocument",
-        "index:mget"
+        "index:mget",
+        "index:deletedocument"
       ],
       "Resource": "index:::.kibana:*"
     },

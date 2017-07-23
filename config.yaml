@@ -4,7 +4,7 @@ flask_tcp_port: 12000
 flask_use_debug: false
 acl_config_folder: 'acl'
 acl_cache_seconds: 3600
-logging_level: info
+logging_level: warning
 elasticsearch_backend_host: http://192.168.99.100:9200
 cache_type: simplecache #simplecache or redis are the valid options
 redis_host: localhost

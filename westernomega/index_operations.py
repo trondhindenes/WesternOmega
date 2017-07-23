@@ -45,12 +45,12 @@ class IndexOperations(object):
                 if method == 'get':
                     operation = 'index:getmapping'
             elif parts[2] == '_field_caps':
-                if method == 'get':
-                    operation = 'index:getfieldcaps'
+                operation = 'index:getfieldcaps'
             else:
+                resource = str.format('index:::{0}:{1}', parts[1], parts[2])
                 if method == 'post':
                     #insert document using automatic ID generation
-                    operation = 'index:createdocument'
+                    operation = 'index:deletedocument'
 
         elif len(parts) == 4:
             if parts[2] in ['_close', '_open', '_settings']:
@@ -61,6 +61,7 @@ class IndexOperations(object):
                     operation = 'index:searchindex'
                     resource = resource + ':' + parts[2]
             else:
+                resource = str.format('index:::{0}:{1}', parts[1], parts[2])
                 if method == 'get':
                     #this is a specified get using index, type and id
                     operation = 'index:searchindex'
@@ -71,6 +72,8 @@ class IndexOperations(object):
                     resource = resource + ':' + parts[2]
                 elif method == 'post':
                     operation = 'index:createdocument'
+                elif method == 'delete':
+                    operation = 'index:deletedocument'
 
         elif len(parts) == 5:
             if parts[2] in ['_close', '_open', '_settings']:
@@ -93,8 +96,6 @@ class IndexOperations(object):
                 if method == 'get':
                     operation = 'index:getmapping'
                     resource = str.format('index:::{0}:{1}', parts[1], parts[3])
-
-
 
         if operation and resource:
             logger.info(str.format("WO:Indexhandler: operation:{0}, resource:{1}", operation, resource))
