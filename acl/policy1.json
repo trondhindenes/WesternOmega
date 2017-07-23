@@ -7,7 +7,8 @@
       "Action": [
         "index:searchindex",
         "index:mget",
-        "index:msearch"
+        "index:msearch",
+        "index:getfieldcaps"
       ],
       "Resource": "index:::logstash*:*"
     },

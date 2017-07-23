@@ -30,6 +30,7 @@ List of index-related operations:
 `index:openindex`: Open the index   
 `index:getmapping`: Get mappings in the index
 `index:mget`: Use the Multi Get API to search
+`index:getfieldcaps`: Get Field Capabilities for the index (https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-field-caps.html)
 
 List of cluster-related operations:   
 `cluster:base`: Allow ping the es cluster   

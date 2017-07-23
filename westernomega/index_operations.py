@@ -44,6 +44,9 @@ class IndexOperations(object):
             elif parts[2] == '_mapping':
                 if method == 'get':
                     operation = 'index:getmapping'
+            elif parts[2] == '_field_caps':
+                if method == 'get':
+                    operation = 'index:getfieldcaps'
             else:
                 if method == 'post':
                     #insert document using automatic ID generation
